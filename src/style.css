@@ -1,0 +1,38 @@
+* {
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+}
+body {
+    background-color: #F2F2F2;
+    color:white;
+}
+#ui {
+    position: sticky;
+    background-color:cornflowerblue
+}
+.answer {
+    background-color: white;
+}
+
+
+#ui {
+    font-size: 40px;
+}
+#point-counter {
+    float: left;
+    border: 2px solid white;
+    color:white;
+    border-radius: 4px;
+    margin-top: 6%;
+    width:80px;
+    
+
+}
+#game {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    height: 800px;
+    border: 1px solid #000000;
+}

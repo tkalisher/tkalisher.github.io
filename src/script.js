@@ -125,7 +125,7 @@ $(function () {
         }
 
         if (recurse == 0) {
-            alert(`Thanks for playing! Your scored a ${Math.round((correct_answers.reduce((a, b) => a + b, 0)/quiz_length) * 100)}%`)
+            alert(`Thanks for playing! You scored a ${Math.round((correct_answers.reduce((a, b) => a + b, 0)/quiz_length) * 100)}%!`)
             
             return;
         }

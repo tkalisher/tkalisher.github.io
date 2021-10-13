@@ -33,32 +33,35 @@ $(function () {
 
 
     const jerusalem = L.marker([31.7964453, 35.1053192], {
-        title: "Jerusalem",
         icon: jerusalem_icon
 
+    }).bindTooltip("Jerusalem", {
+        offset: [50, 8]
     });
 
     jerusalem.bindPopup("Jerusalem is the third most important city to Islam. It's importance comes from the fact the it is related to prophets mentioned in the Quaran, such as Abraham, David, Solomon, and Jesus.", {
-        offset: [25, -15]
+        offset: [20, -15]
     }).openPopup();
 
     const mecca = L.marker([21.4362767, 39.7064625], {
-        title: "Mecca",
         icon: mecca_icon
 
+    }).bindTooltip("Mecca", {
+        offset: [65, 4]
     });
 
     mecca.bindPopup("Mecca is considered the most important city of Islam. It is where the prophet Muhammed lived and where the Ka'aba is.", {
-        offset: [31, -15]
+        offset: [35, -15]
     }).openPopup();
 
     const medina = L.marker([24.5175721, 39.5579209], {
-        title: "Medina",
         icon: medina_icon
+    }).bindTooltip("Medina", {
+        offset: [50, 8]
     });
 
     medina.bindPopup("Medina is considered the second most important city to Islam. It is where the prophet Muhammed's tomb lies and is where Islam started.", {
-        offset: [25, -15]
+        offset: [20, -15]
     }).openPopup();
 
 
@@ -108,8 +111,6 @@ $(function () {
     }
 
 
-
-
     async function run(map, questions, recurse, quiz_length = null, q_num = 0, old_marker = null) {
         if (old_marker) {
             map.removeLayer(old_marker)
@@ -125,6 +126,7 @@ $(function () {
         }
         /*
         code help at = "https://stackoverflow.com/questions/51013412/how-to-do-javascript-await-on-user-input-in-an-async-function"
+        BUG WHERE POINTER WILL DUPLICATE @ Q 9 
         */
 
 
@@ -143,7 +145,8 @@ $(function () {
 
         const player = L.marker(location, {
             title: "You are here"
-        });
+        }).bindTooltip("You are here");
+
         player.addTo(map);
         $('#q-field').text((q_num + 1) + ". " + questions[0][0]); //change text
         await waitUserInput();

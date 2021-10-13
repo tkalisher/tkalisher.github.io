@@ -13,6 +13,7 @@ body {
 }
 .answer {
     background-color: white;
+    font-size:40px;     
 }
 
 
@@ -32,7 +33,6 @@ body {
 #game {
     margin-left: 10%;
     margin-right: 10%;
-    width: 80%;
     height: 800px;
     border: 1px solid #000000;
 }

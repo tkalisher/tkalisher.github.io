@@ -50,7 +50,7 @@ $(function () {
         offset: [65, 4]
     });
 
-    mecca.bindPopup("Mecca is considered the most important city of Islam. It is where the prophet Muhammed lived and where the Ka'aba is.", {
+    mecca.bindPopup("Mecca is considered the most important city of Islam. It is where the prophet Muhammed lived and is where the Ka'aba is.", {
         offset: [35, -15]
     }).openPopup();
 
@@ -87,7 +87,9 @@ $(function () {
         ["Which means \"one who follows tradition?\"", "sunni", "standard"],
         ["Who makes up around 90% of all Muslims?", "sunni", "standard"],
         ["Who believes that Allah's son is the prophet Muhammed?", "neither", "standard"],
-        ["BONUS: Which sect of Islam is most prominent in Iran?", "shia", "bonus"]
+        ["BONUS: Which sect of Islam is most prominent in Iran?", "shia", "bonus"],
+        ["Who believes in Imams?", "shia", "standard"],
+        ["Who belive that Abraham, Moses, Jesus, and Muhammad were all prophets or messengers of God?", "both", "standard"],
 
     ];
 
@@ -95,10 +97,15 @@ $(function () {
 
     questions.sort(() => .5 - Math.random());
     questions.unshift(["Who follows the five pillars of faith?", "both", "standard"])
+    console.log(`${questions.length} total questions`)
     const timeout = async ms => new Promise(res => setTimeout(res, ms));
     let next = false; // this is to be changed on user input
     let user_answer = "";
-
+    const correct_answers = [];
+    for(var i = 0;i < questions.length-1; i ++){
+        correct_answers.push("");
+    }
+    
 
 
     async function waitUserInput() {
@@ -112,12 +119,14 @@ $(function () {
 
 
     async function run(map, questions, recurse, quiz_length = null, q_num = 0, old_marker = null) {
+        console.log(correct_answers)    
         if (old_marker) {
             map.removeLayer(old_marker)
         }
 
         if (recurse == 0) {
-            alert("Good Game!")
+            alert(`Thanks for playing! Your scored a ${Math.round((correct_answers.reduce((a, b) => a + b, 0)/quiz_length) * 100)}%`)
+            
             return;
         }
         if (quiz_length === null) {
@@ -130,7 +139,7 @@ $(function () {
         */
 
 
-        const startPos = [32, 35],
+        const startPos = [31.5, 35],
             endPos = [21, 40],
             xDiff = endPos[0] - startPos[0],
             yDiff = endPos[1] - startPos[1],
@@ -143,9 +152,7 @@ $(function () {
             });
         let location = [currX, currY]
 
-        const player = L.marker(location, {
-            title: "You are here"
-        }).bindTooltip("You are here");
+        const player = L.marker(location).bindTooltip("You are here");
 
         player.addTo(map);
         $('#q-field').text((q_num + 1) + ". " + questions[0][0]); //change text
@@ -158,6 +165,9 @@ $(function () {
                 $('#point-counter').text(+($('#point-counter').text()) + 20);
             }
             //correct
+            if(correct_answers[q_num] === "") {
+                correct_answers[q_num] = 1
+            }
             console.log(user_answer, "is correct");
 
             $('#point-counter').text(+($('#point-counter').text()) + 10);
@@ -169,6 +179,9 @@ $(function () {
             run(map, questions, questions.length, quiz_length, q_num + 1, player);
 
         } else {
+             if (correct_answers[q_num] === "") {
+                 correct_answers[q_num] = 0
+             }
             //answer was inncorrect
             $('#' + user_answer).css('background-color', 'red');
             setTimeout(function () {
@@ -181,9 +194,9 @@ $(function () {
 
             } else { //(if the question was a bonus)
                 questions.shift();
-                run(map, questions, questions.length, quiz_length, q_num + 1, player);
+                q_num++;
             }
-
+           
             console.log(user_answer, "is incorrect");
             run(map, questions, questions.length, quiz_length, q_num, player);
         }

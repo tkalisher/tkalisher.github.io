@@ -16,17 +16,27 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <form id="ui" class="col container">
-                <div id="point-counter" title="Points">0</div>
+    <div class="container-fluid border-top">
+        <div class="row container-fluid">
+            <form id="ui" class="col container-fluid">
+                
                 <div id="q-field"></div>
-                <button id="sunni" class="answer btn btn-lg" type="button">Sunni</button>
-                <button id="shia" class="answer btn btn-lg" type="button">Shia</button>
-                <button id="both" class="answer btn btn-lg" type="button">Both</button>
-                <button id="neither" class="answer btn btn-lg" type="button">Neither</button>
+                <div class="button-box col-lg-12 col-xs-12">
+                    <button id="sunni" class="answer btn btn-lg left" type="button">Sunni</button>
+                    <button id="shia" class="answer btn btn-lg right" type="button">Shia</button>
+                </div>
+                <br>
+                <div class="button-box col-lg-12 col-xs-12">
+                    <button id="both" class="answer btn btn-lg left" type="button">Both</button>
+                    <button id="neither" class="answer btn btn-lg right" type="button">Neither</button>
+                </div>
+                <span id="point-counter" title="Points">0</span>
+                <h4>Points</h4>
+                <hr>
+                <h1 style="font-size: 30px;">Answer the questions correctly to score points and watch your character walk to Mecca!</h1>
             </form>
-            <div id="game" class="col container"></div>
+            <span id="game" class="col container-fluid"></span>
+
         </div>
     </div>
     
